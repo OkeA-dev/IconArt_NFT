@@ -18,6 +18,12 @@ contract TestIconArt is Test {
     DeployIconArt deployIconArt;
     IconArt iconArt;
 
+    modifier userMint(){
+        vm.prank(USER);
+        iconArt._mint(DOG_ART);
+        _;
+    }
+
     function setUp() public {
         deployIconArt = new DeployIconArt();
         iconArt = deployIconArt.run();
@@ -33,9 +39,7 @@ contract TestIconArt is Test {
         );
     }
 
-    function testCanMintAndHaveABalance() public {
-        vm.prank(USER);
-        iconArt._mint(DOG_ART);
+    function testCanMintAndHaveABalance() public userMint {
 
         vm.prank(ZERO_ADDRESS);
         vm.expectRevert(
@@ -53,12 +57,9 @@ contract TestIconArt is Test {
         );
     }
 
-    function testCanTransferAmongUsers() public {
-        vm.startPrank(USER);
-        iconArt._mint(DOG_ART);
-
+    function testCanTransferAmongUsers() public userMint{
+        vm.prank(USER);
         iconArt.transferFrom(USER, BOB, tokenId);
-
         vm.expectRevert(
             abi.encodeWithSelector(
                 IERC721Errors.ERC721InvalidReceiver.selector,
@@ -81,9 +82,8 @@ contract TestIconArt is Test {
         assertEq(iconArt.balanceOf(BOB), 1);
     }
 
-    function testApprovalToTransferToken() public {
+    function testApprovalToTransferToken() public userMint{
         vm.startPrank(USER);
-        iconArt._mint(DOG_ART);
         iconArt.approve(BOB, tokenId);
 
         address approvedAddress = iconArt.getApproved(tokenId);
@@ -97,9 +97,8 @@ contract TestIconArt is Test {
         assertEq(approvedAddress, BOB);
     }
 
-    function testTransferApprovedToken() public {
+    function testTransferApprovedToken() public userMint {
         vm.startPrank(USER);
-        iconArt._mint(DOG_ART);
         iconArt.approve(BOB, tokenId);
         vm.stopPrank();
 
@@ -110,9 +109,8 @@ contract TestIconArt is Test {
         assertEq(iconArt.balanceOf(USER), 0);
     }
 
-    function testRevokingUnapprovedAddress() public {
+    function testRevokingUnapprovedAddress() public userMint {
         vm.prank(USER);
-        iconArt._mint(DOG_ART);
 
         vm.prank(BOB);
         vm.expectRevert(
