@@ -110,7 +110,6 @@ contract TestIconArt is Test {
     }
 
     function testRevokingUnapprovedAddress() public userMint {
-        vm.prank(USER);
 
         vm.prank(BOB);
         vm.expectRevert(

@@ -34,7 +34,7 @@ contract MoodNft is ERC721, Ownable {
     }
 
     function flipMood() public {
-        if(!_isAuthorized(owner(),msg.sender, s_tokenCounter)){
+        if (!_isAuthorized(_ownerOf(0), _msgSender(), 0)) {
             revert MoodNft__CantFlip();
         }
         if (s_tokenIdToMood[s_tokenCounter] == Mood.HAPPY) {
@@ -78,6 +78,6 @@ contract MoodNft is ERC721, Ownable {
     }
 
     function getMoodNftState() public view returns (Mood) {
-        return  s_tokenIdToMood[s_tokenCounter];
+        return s_tokenIdToMood[s_tokenCounter];
     }
 }
