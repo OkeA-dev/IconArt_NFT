@@ -2,7 +2,7 @@
 pragma solidity ^0.8.19;
 
 import {Test, console} from "forge-std/Test.sol";
-import {MoodNft} from "../src/MoodNft.sol";
+import {MoodNft} from "../../src/MoodNft.sol";
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
 contract TestMoodNft is Test {

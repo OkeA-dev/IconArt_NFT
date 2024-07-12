@@ -2,8 +2,8 @@
 pragma solidity ^0.8.19;
 
 import {Test, console} from "forge-std/Test.sol";
-import {DeployIconArt} from "../script/DeployIconArt.s.sol";
-import {IconArt} from "../src/IconArt.sol";
+import {DeployIconArt} from "../../script/DeployIconArt.s.sol";
+import {IconArt} from "../../src/IconArt.sol";
 import {IERC721Errors} from "lib/openzeppelin-contracts/contracts/interfaces/draft-IERC6093.sol";
 
 contract TestIconArt is Test {
