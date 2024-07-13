@@ -47,3 +47,5 @@ deployMood:
 
 mintMood:
 	@forge script script/InteractionsWithMoodNft.s.sol:MintIconArt ${NETWORK_ARGS}
+flipMood:
+	@forge script script/InteractWithFlip.s.sol:FlipMood ${NETWORK_ARGS}
